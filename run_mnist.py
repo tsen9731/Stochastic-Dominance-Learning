@@ -1,10 +1,6 @@
 from absl import app
 from absl import flags
 from absl import logging
-# from clu import platform
-
-import os
-os.environ['CUDA_VISIBLE_DEVICES']='1'
 
 import jax
 from ml_collections import config_flags
