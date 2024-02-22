@@ -21,13 +21,13 @@ def sd_1st_cdf(x, y, rel_tau=0.3, get_utility=False):
     sorted_values = values[idx_sort]
 
     F1x = jnp.cumsum(1-sorted_is_y)/nX
-    F2y = jnp.cumsum(sorted_is_y)/nY
+    F1y = jnp.cumsum(sorted_is_y)/nY
     eps = jnp.finfo(x.dtype).eps
     
     eta_values = stop_gradient(sorted_values + eps)
-    # mu = stop_gradient(F1x > F2y).astype(x.dtype)
-    tau = (jnp.max(F2x - F2y) - jnp.min(F2x - F2y))*rel_tau
-    mu = jnp.exp(((F1x - F2y) - jnp.max(F1x - F2y))/tau)
+    # mu = stop_gradient(F1x > F1y).astype(x.dtype)
+    tau = (jnp.max(F1x - F1y) - jnp.min(F1x - F1y))*rel_tau
+    mu = jnp.exp(((F1x - F1y) - jnp.max(F1x - F1y))/tau)
     mu = mu/(jnp.sum(mu)+eps)
     mu = stop_gradient(mu).astype(x.dtype)
 
